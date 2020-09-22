@@ -20,24 +20,15 @@ export default {
 
 .post {
   box-sizing: border-box;
-  margin-bottom: 16px;
+  margin: 0 0 16px;
   padding: 0 16px;
-  width: calc(100% / 3);
-}
-.post-favorite {
-  padding: 0;
-  width: 100%;
-}
-.post-favorite:last-child {
-  margin-bottom: 0;
-}
-.post-favorite .post-card {
-  height: auto;
+  width: calc(100% / 4);
 }
 .post-card {
   position: relative;
   padding: 8px;
   height: calc(100% - 16px);
+  text-align: left;
   background-color: #ffffff;
 }
 .post-card button {
