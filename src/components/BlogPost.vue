@@ -2,7 +2,7 @@
   <div class="post">
     <div class="post-card" @click="$emit('showPost', post)">
       <button @click.stop="$emit('toggleFavorite', post)" type="button">&#9734;</button>
-<!--      <p>{{post.id}}</p>-->
+      <p>{{post.id}}</p>
       <h3>{{ post.title }}</h3>
       <p>{{ post.body }}</p>
     </div>
