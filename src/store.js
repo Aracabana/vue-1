@@ -1,24 +1,39 @@
 import Vue from 'vue';
 
-export const store = Vue.observable({
+const state = Vue.observable({
     posts: [],
     favorites: []
 });
+export const getters = {
+    posts: () => state.posts,
+    favorites: () => state.favorites
+};
 
 export const mutations = {
+    setPosts: (val) => state.posts = val,
     toggleFavorite(post) {
-        if (store.posts.includes(post)) {
-            store.favorites.push(post);
-            store.favorites.sort((a, b) => {
+        if (state.posts.includes(post)) {
+            state.favorites.push(post);
+            state.favorites.sort((a, b) => {
                 return a.id - b.id;
             });
-            store.posts = store.posts.filter(p => p.id !== post.id);
+            state.posts = state.posts.filter(p => p.id !== post.id);
             return;
         }
-        store.posts.push(post);
-        store.posts.sort((a, b) => {
+        state.posts.push(post);
+        state.posts.sort((a, b) => {
             return a.id - b.id;
         });
-        store.favorites = store.favorites.filter(p => p.id !== post.id);
+        state.favorites = state.favorites.filter(p => p.id !== post.id);
+    }
+};
+
+export const actions = {
+    fetchPostsFromApi() {
+        fetch('https://jsonplaceholder.typicode.com/posts')
+            .then(response => response.json())
+            .then((json) => {
+                mutations.setPosts(json)
+            })
     }
 };

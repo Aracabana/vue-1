@@ -11,29 +11,30 @@
 </template>
 <script>
     import BlogPost from '@/components/BlogPost';
-    import {store, mutations } from '../store.js';
+    import {getters, mutations, actions} from '../store.js';
     
     export default {
         name: "Blog",
         components: {BlogPost},
         data() {
-            return {
-                posts: store.posts,
-            }
+            return {}
+        },
+        computed: {
+            ...getters
         },
         methods: {
             showPost(post) {
-                this.activePost = post;
+                this.$emit('showPost', post);
             },
-            toggleFavorite(post) {
-                mutations.toggleFavorite(post)
-            },
+            ...mutations,
+            ...actions
         },
-        mounted() {
-            fetch('https://jsonplaceholder.typicode.com/posts')
-                .then(response => response.json())
-                .then(json => store.posts = json)
-        }
+        created() {
+            if (!this.posts.length) {
+                this.fetchPostsFromApi()
+            }
+        },
+        
     }
 </script>
 <style scoped>
