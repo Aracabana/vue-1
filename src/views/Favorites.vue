@@ -4,31 +4,21 @@
       <BlogPost v-for="post in favorites"
                 v-bind:key="post.id"
                 v-bind:post="post"
-                @showPost="showPost"
-                @toggleFavorite="toggleFavorite(post)"/>
+                v-bind:favoriteClass="'active'"/>
     </div>
   </div>
 </template>
 
 <script>
 import BlogPost from '@/components/BlogPost';
-import { getters, mutations } from '../store.js';
+import { getters } from '../store';
 
 export default {
   name: "Favorites",
-  data() {
-    return {}
-  },
   components: {BlogPost},
   computed: {
     ...getters
-  },
-  methods: {
-    showPost(post) {
-      this.$emit('showPost', post);
-    },
-    ...mutations
-  },
+  }
 }
 </script>
 

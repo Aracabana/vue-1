@@ -2,14 +2,17 @@ import Vue from 'vue';
 
 const state = Vue.observable({
     posts: [],
-    favorites: []
+    favorites: [],
+    activePost: null
 });
 export const getters = {
     posts: () => state.posts,
-    favorites: () => state.favorites
+    favorites: () => state.favorites,
+    activePost: () => state.activePost
 };
 
 export const mutations = {
+    setActivePost: (post) => state.activePost = post,
     setPosts: (val) => state.posts = val,
     toggleFavorite(post) {
         if (state.posts.includes(post)) {

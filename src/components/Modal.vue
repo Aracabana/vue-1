@@ -1,20 +1,27 @@
 <template>
-    <div class="overlay" @click.self="$emit('closeModal')">
+    <div class="overlay" @click.self="setActivePost(null)">
         <div class="modal">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <button class="modal-close" type="button" @click="$emit('closeModal')">Close</button>
-                    <h2>{{post.title}}</h2>
-                    <p>{{post.body}}</p>
+                    <button class="modal-close" type="button" @click="setActivePost(null)">Close</button>
+                    <h2>{{activePost.title}}</h2>
+                    <p>{{activePost.body}}</p>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
+    import { getters, mutations } from '../store';
     export default {
         name: "Modal",
-        props: ['post']
+        computed: {
+            ...getters
+        },
+        methods: {
+            ...mutations
+        }
+        
     }
 </script>
 <style scoped>

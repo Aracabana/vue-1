@@ -1,32 +1,23 @@
 <template>
     <div id="app">
         <div id="nav">
-            <router-link to="/">Home</router-link>
+            <router-link to="/">Blog</router-link>
             |
             <router-link to="/favorites">Favorites</router-link>
         </div>
-        <router-view @showPost="showPost"/>
-        <Modal v-if="activePost" :post="activePost" @closeModal="closeModal"/>
+        <router-view/>
+        <Modal v-if="activePost"/>
     </div>
 </template>
 <script>
     import Modal from '@/components/Modal';
+    import { getters } from './store';
     
     export default {
         name: 'app',
-        data() {
-            return {
-                activePost: null
-            }
-        },
         components: { Modal },
-        methods: {
-            closeModal() {
-                this.activePost = null;
-            },
-            showPost(post) {
-                this.activePost = post;
-            },
+        computed: {
+            ...getters
         }
     }
 </script>

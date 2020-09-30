@@ -3,30 +3,21 @@
         <div class="posts-in">
             <BlogPost v-for="post in posts"
                       v-bind:key="post.id"
-                      v-bind:post="post"
-                      @showPost="showPost"
-                      @toggleFavorite="toggleFavorite(post)"/>
+                      v-bind:post="post"/>
         </div>
     </div>
 </template>
 <script>
     import BlogPost from '@/components/BlogPost';
-    import {getters, mutations, actions} from '../store.js';
+    import {getters, actions} from '../store';
     
     export default {
         name: "Blog",
         components: {BlogPost},
-        data() {
-            return {}
-        },
         computed: {
             ...getters
         },
         methods: {
-            showPost(post) {
-                this.$emit('showPost', post);
-            },
-            ...mutations,
             ...actions
         },
         created() {
