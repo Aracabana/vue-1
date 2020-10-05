@@ -4,7 +4,8 @@
       <BlogPost v-for="post in favorites"
                 v-bind:key="post.id"
                 v-bind:post="post"
-                v-bind:favoriteClass="'active'"/>
+                v-bind:favoriteClass="'active'"
+                v-bind:array="post.arrayType"/>
     </div>
   </div>
 </template>
@@ -35,4 +36,5 @@ export default {
     box-sizing: border-box;
     margin: 0 -16px;
   }
+  
 </style>

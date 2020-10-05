@@ -1,7 +1,8 @@
 <template>
     <div class="post">
-        <div class="post-card" @click="setActivePost(post)">
-            <button @click.stop="toggleFavorite(post)" type="button" :class="favoriteClass">&#9734;</button>
+        <div class="post-card">
+            <button class="more" type="button" @click="setActivePost(post)">More</button>
+            <button @click.stop="toggleFavorite(array, post)" type="button" class="favorite" :class="favoriteClass">&#9734;</button>
             <p>id: {{post.id}}</p>
             <h3>{{ post.title }}</h3>
             <p>{{ post.body }}</p>
@@ -13,7 +14,7 @@
     
     export default {
         name: "BlogPost",
-        props: ['post', 'favoriteClass'],
+        props: ['array', 'post', 'favoriteClass'],
         methods: {
             ...mutations,
         }
@@ -22,18 +23,17 @@
 <style scoped>
     .post {
         box-sizing: border-box;
-        margin: 0 0 16px;
-        padding: 0 16px;
+        padding: 0 16px 16px;
         width: calc(100% / 4);
     }
     .post-card {
         position: relative;
-        padding: 8px;
-        height: calc(100% - 16px);
+        padding: 40px 8px 8px;
+        /*height: calc(100% - 16px);*/
         text-align: left;
         background-color: #ffffff;
     }
-    .post-card button {
+    .post-card .favorite {
         position: absolute;
         right: 8px;
         top: 8px;
@@ -41,8 +41,13 @@
         line-height: 1;
         cursor: pointer;
     }
-    .post-card button.active {
+    .post-card .favorite.active {
         background-color: #42b983;
+    }
+    .more {
+        position: absolute;
+        top: 8px;
+        left: 8px;
     }
     .post-card h3 {
         margin-top: 0;

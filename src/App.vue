@@ -4,6 +4,8 @@
             <router-link to="/">Blog</router-link>
             |
             <router-link to="/favorites">Favorites</router-link>
+            |
+            <router-link to="/custom-posts">Custom Posts</router-link>
         </div>
         <router-view/>
         <Modal v-if="activePost"/>
@@ -22,6 +24,9 @@
     }
 </script>
 <style>
+    html {
+        background-color: #f2f2f2;
+    }
     #app {
         font-family: Avenir, Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;

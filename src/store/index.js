@@ -3,28 +3,60 @@ import Vue from 'vue';
 const state = Vue.observable({
     posts: [],
     favorites: [],
+    customPosts: [
+        {
+            body:"quia et suscipit suscipit recusandae consequuntur expedita et cum" +
+                " reprehenderit molestiae ut ut quas totam nostrum rerum est autem sunt rem" +
+                " eveniet architecto",
+            id: 101,
+            title: "Custom 1",
+            userId: 1,
+    
+        },
+        {
+            body:"quia et suscipit suscipit recusandae consequuntur expedita et cum" +
+                " reprehenderit molestiae ut ut quas totam nostrum rerum est autem sunt rem" +
+                " eveniet architecto",
+            id: 102,
+            title: "Custom 2",
+            userId: 1,
+        
+        }
+    ],
     activePost: null
 });
 export const getters = {
     posts: () => state.posts,
+    customPosts: () => state.customPosts,
     favorites: () => state.favorites,
     activePost: () => state.activePost
 };
 
 export const mutations = {
     setActivePost: (post) => state.activePost = post,
+    //setPosts: (val) => {
+    //    state.posts = val.map(item => {
+    //        return {
+    //            ...item,
+    //            arrayType: 'posts'
+    //        }
+    //    });
+    //},
     setPosts: (val) => state.posts = val,
-    toggleFavorite(post) {
-        if (state.posts.includes(post)) {
-            state.favorites.push(post);
+    toggleFavorite(array, post) {
+        if (state[array].includes(post)) {
+            state.favorites.push({
+                ...post,
+                arrayType: array
+            });
             state.favorites.sort((a, b) => {
                 return a.id - b.id;
             });
-            state.posts = state.posts.filter(p => p.id !== post.id);
+            state[array] = state[array].filter(p => p.id !== post.id);
             return;
         }
-        state.posts.push(post);
-        state.posts.sort((a, b) => {
+        state[array].push(post);
+        state[array].sort((a, b) => {
             return a.id - b.id;
         });
         state.favorites = state.favorites.filter(p => p.id !== post.id);
