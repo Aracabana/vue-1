@@ -1,11 +1,10 @@
 <template>
-    <div class="overlay" @click.self="setActivePost(null)">
+    <div class="overlay" @click.self="closeModal">
         <div class="modal">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <button class="modal-close" type="button" @click="setActivePost(null)">Close</button>
-                    <h2>{{activePost.title}}</h2>
-                    <p>{{activePost.body}}</p>
+                    <button class="modal-close" type="button" @click="closeModal">Close</button>
+                    <slot></slot>
                 </div>
             </div>
         </div>
@@ -19,7 +18,11 @@
             ...getters
         },
         methods: {
-            ...mutations
+            ...mutations,
+            closeModal: function () {
+                this.toggleModal();
+                this.setActivePost(null);
+            }
         }
         
     }

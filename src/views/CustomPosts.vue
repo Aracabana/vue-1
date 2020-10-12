@@ -9,15 +9,24 @@
                           v-bind:array="'customPosts'"/>
             </div>
         </div>
+        <Modal v-if="isModalVisible">
+            <h2>{{activePost.title}}</h2>
+            <p>{{activePost.body}}</p>
+        </Modal>
+        <Modal v-if="isModalVisible">
+            <h2>Add post</h2>
+            <p></p>
+        </Modal>
     </div>
 </template>
 <script>
     import BlogPost from '@/components/BlogPost';
+    import Modal from '@/components/Modal';
     import {getters, actions} from '../store';
     
     export default {
         name: "CustomPosts",
-        components: {BlogPost},
+        components: {BlogPost, Modal},
         computed: {
             ...getters
         },

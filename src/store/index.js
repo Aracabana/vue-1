@@ -23,16 +23,19 @@ const state = Vue.observable({
         
         }
     ],
-    activePost: null
+    activePost: null,
+    isModalVisible: false
 });
 export const getters = {
     posts: () => state.posts,
     customPosts: () => state.customPosts,
     favorites: () => state.favorites,
-    activePost: () => state.activePost
+    activePost: () => state.activePost,
+    isModalVisible: () => state.isModalVisible
 };
 
 export const mutations = {
+    toggleModal: () => state.isModalVisible = !state.isModalVisible,
     setActivePost: (post) => state.activePost = post,
     //setPosts: (val) => {
     //    state.posts = val.map(item => {

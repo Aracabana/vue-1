@@ -1,7 +1,7 @@
 <template>
     <div class="post">
         <div class="post-card">
-            <button class="more" type="button" @click="setActivePost(post)">More</button>
+            <button class="more" type="button" @click="openModal">More</button>
             <button @click.stop="toggleFavorite(array, post)" type="button" class="favorite" :class="favoriteClass">&#9734;</button>
             <p>id: {{post.id}}</p>
             <h3>{{ post.title }}</h3>
@@ -17,6 +17,10 @@
         props: ['array', 'post', 'favoriteClass'],
         methods: {
             ...mutations,
+            openModal: function () {
+                this.setActivePost(this.post);
+                this.toggleModal();
+            }
         }
     }
 </script>
@@ -28,8 +32,9 @@
     }
     .post-card {
         position: relative;
+        box-sizing: border-box;
         padding: 40px 8px 8px;
-        /*height: calc(100% - 16px);*/
+        height: 100%;
         text-align: left;
         background-color: #ffffff;
     }
