@@ -1,16 +1,16 @@
 <template>
     <div>
         <button class="add-post" type="button">Add post</button>
-        <form>
+        <form @submit.prevent="onSubmit">
             <div>
                 <label>Title</label>
-                <input type="text">
+                <input type="text" v-model="title">
             </div>
             <div>
                 <label>Text</label>
-                <textarea></textarea>
+                <textarea v-model="body"></textarea>
             </div>
-            <button type="submit">Submit</button>
+            <button :disabled="isDisabled" type="submit">Submit</button>
         </form>
         <div class="posts">
             <div class="posts-in">
@@ -24,16 +24,38 @@
 </template>
 <script>
     import BlogPost from '@/components/BlogPost';
-    import {getters, actions} from '../store';
+    import {getters, actions, mutations} from '../store';
     
     export default {
         name: "CustomPosts",
+        data() {
+            return {
+                title: '',
+                body: '',
+            }
+        },
         components: {BlogPost},
         computed: {
-            ...getters
+            ...getters,
+            isDisabled: function () {
+                return !this.title || !this.body
+            }
         },
         methods: {
-            ...actions
+            ...actions,
+            ...mutations,
+            onSubmit() {
+                if (this.title.trim() && this.body.trim()) {
+                    const newPost = {
+                        id: this.customPostsLength,
+                        userId: 1,
+                        type: 'custom',
+                        title: this.title,
+                        body: this.body
+                    }
+                    this.addCustomPost(newPost);
+                }
+            }
         },
         //created() {
         //    if (!this.customPosts.length) {

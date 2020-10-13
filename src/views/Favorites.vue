@@ -2,7 +2,7 @@
   <div class="posts">
     <div class="posts-in">
       <BlogPost v-for="post in favorites"
-                v-bind:key="post.id"
+                v-bind:key="post.type + '_' + post.id"
                 v-bind:post="post"
                 v-bind:favoriteClass="'active'"
                 v-bind:array="post.arrayType"/>

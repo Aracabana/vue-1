@@ -4,7 +4,7 @@ const state = Vue.observable({
     posts: [],
     favorites: [],
     customPosts: [
-        {
+/*        {
             body:"quia et suscipit suscipit recusandae consequuntur expedita et cum" +
                 " reprehenderit molestiae ut ut quas totam nostrum rerum est autem sunt rem" +
                 " eveniet architecto",
@@ -21,7 +21,7 @@ const state = Vue.observable({
             title: "Custom 2",
             userId: 1,
         
-        }
+        }*/
     ],
     activePost: null,
     isModalVisible: false
@@ -29,6 +29,7 @@ const state = Vue.observable({
 export const getters = {
     posts: () => state.posts,
     customPosts: () => state.customPosts,
+    customPostsLength: () => state.customPosts.length,
     favorites: () => state.favorites,
     activePost: () => state.activePost,
     isModalVisible: () => state.isModalVisible
@@ -37,15 +38,15 @@ export const getters = {
 export const mutations = {
     toggleModal: () => state.isModalVisible = !state.isModalVisible,
     setActivePost: (post) => state.activePost = post,
-    //setPosts: (val) => {
-    //    state.posts = val.map(item => {
-    //        return {
-    //            ...item,
-    //            arrayType: 'posts'
-    //        }
-    //    });
-    //},
-    setPosts: (val) => state.posts = val,
+    setPosts: (val) => {
+       state.posts = val.map(item => {
+           return {
+               ...item,
+               type: 'posts'
+           }
+       });
+    },
+    // setPosts: (val) => state.posts = val,
     toggleFavorite(array, post) {
         if (state[array].includes(post)) {
             state.favorites.push({
@@ -63,7 +64,8 @@ export const mutations = {
             return a.id - b.id;
         });
         state.favorites = state.favorites.filter(p => p.id !== post.id);
-    }
+    },
+    addCustomPost: (obj) => state.customPosts.push(obj),
 };
 
 export const actions = {
