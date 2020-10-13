@@ -8,19 +8,19 @@
             <router-link to="/custom-posts">Custom Posts</router-link>
         </div>
         <router-view/>
-        <!--<Modal v-if="isModalVisible"/>-->
+        <Modal v-if="isModalVisible"/>
     </div>
 </template>
 <script>
-    //import Modal from '@/components/Modal';
-    //import { getters } from './store';
+    import Modal from '@/components/Modal';
+    import { getters } from './store';
     
     export default {
         name: 'app',
-        //components: { Modal },
-        //computed: {
-        //    ...getters
-        //}
+        components: { Modal },
+        computed: {
+            ...getters
+        }
     }
 </script>
 <style>

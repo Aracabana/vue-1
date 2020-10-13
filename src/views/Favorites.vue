@@ -7,21 +7,16 @@
                 v-bind:favoriteClass="'active'"
                 v-bind:array="post.arrayType"/>
     </div>
-    <Modal v-if="isModalVisible">
-      <h2>{{activePost.title}}</h2>
-      <p>{{activePost.body}}</p>
-    </Modal>
   </div>
 </template>
 
 <script>
 import BlogPost from '@/components/BlogPost';
-import Modal from '@/components/Modal';
 import { getters } from '../store';
 
 export default {
   name: "Favorites",
-  components: {BlogPost, Modal},
+  components: {BlogPost},
   computed: {
     ...getters
   }

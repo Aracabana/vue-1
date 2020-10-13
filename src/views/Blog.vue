@@ -6,20 +6,15 @@
                       v-bind:post="post"
                       v-bind:array="'posts'"/>
         </div>
-        <Modal v-if="isModalVisible">
-            <h2>{{activePost.title}}</h2>
-            <p>{{activePost.body}}</p>
-        </Modal>
     </div>
 </template>
 <script>
     import BlogPost from '@/components/BlogPost';
-    import Modal from '@/components/Modal';
     import {getters, actions} from '../store';
     
     export default {
         name: "Blog",
-        components: {BlogPost, Modal},
+        components: {BlogPost},
         computed: {
             ...getters
         },

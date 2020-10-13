@@ -4,7 +4,8 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <button class="modal-close" type="button" @click="closeModal">Close</button>
-                    <slot></slot>
+                    <h2>{{activePost.title}}</h2>
+                    <p>{{activePost.body}}</p>
                 </div>
             </div>
         </div>

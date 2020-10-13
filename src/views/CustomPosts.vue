@@ -1,6 +1,17 @@
 <template>
     <div>
         <button class="add-post" type="button">Add post</button>
+        <form>
+            <div>
+                <label>Title</label>
+                <input type="text">
+            </div>
+            <div>
+                <label>Text</label>
+                <textarea></textarea>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
         <div class="posts">
             <div class="posts-in">
                 <BlogPost v-for="post in customPosts"
@@ -9,24 +20,15 @@
                           v-bind:array="'customPosts'"/>
             </div>
         </div>
-        <Modal v-if="isModalVisible">
-            <h2>{{activePost.title}}</h2>
-            <p>{{activePost.body}}</p>
-        </Modal>
-        <Modal v-if="isModalVisible">
-            <h2>Add post</h2>
-            <p></p>
-        </Modal>
     </div>
 </template>
 <script>
     import BlogPost from '@/components/BlogPost';
-    import Modal from '@/components/Modal';
     import {getters, actions} from '../store';
     
     export default {
         name: "CustomPosts",
-        components: {BlogPost, Modal},
+        components: {BlogPost},
         computed: {
             ...getters
         },
@@ -56,5 +58,28 @@
         align-content: start;
         box-sizing: border-box;
         margin: 0 -16px;
+    }
+    form {
+        padding: 16px;
+    }
+    form button {
+        display: block;
+        width: 100px;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+        text-align: left;
+    }
+    input {
+        display: block;
+        margin-bottom: 20px;
+        width: 40%;
+    }
+    textarea {
+        display: block;
+        margin-bottom: 20px;
+        width: 40%;
+        height: 100px;
     }
 </style>
