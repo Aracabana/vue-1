@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import firebase from 'firebase/app';
 
 const state = Vue.observable({
     posts: [],
@@ -23,20 +24,17 @@ const state = Vue.observable({
         
         }*/
     ],
-    activePost: null,
-    isModalVisible: false
+    activePost: null
 });
 export const getters = {
     posts: () => state.posts,
     customPosts: () => state.customPosts,
     customPostsLength: () => state.customPosts.length,
     favorites: () => state.favorites,
-    activePost: () => state.activePost,
-    isModalVisible: () => state.isModalVisible
+    activePost: () => state.activePost
 };
 
 export const mutations = {
-    toggleModal: () => state.isModalVisible = !state.isModalVisible,
     setActivePost: (post) => state.activePost = post,
     setPosts: (val) => {
        state.posts = val.map(item => {
@@ -47,25 +45,22 @@ export const mutations = {
        });
     },
     // setPosts: (val) => state.posts = val,
-    toggleFavorite(array, post) {
-        if (state[array].includes(post)) {
-            state.favorites.push({
-                ...post,
-                arrayType: array
-            });
+    toggleFavorite(post) {
+        if (state[post.type].includes(post)) {
+            state.favorites.push(post);
             state.favorites.sort((a, b) => {
                 return a.id - b.id;
             });
-            state[array] = state[array].filter(p => p.id !== post.id);
+            state[post.type] = state[post.type].filter(p => p.id !== post.id);
             return;
         }
-        state[array].push(post);
-        state[array].sort((a, b) => {
+        state[post.type].push(post);
+        state[post.type].sort((a, b) => {
             return a.id - b.id;
         });
         state.favorites = state.favorites.filter(p => p.id !== post.id);
     },
-    addCustomPost: (obj) => state.customPosts.push(obj),
+    //addCustomPost: (obj) => state.customPosts.push(obj),
 };
 
 export const actions = {
@@ -75,5 +70,8 @@ export const actions = {
             .then((json) => {
                 mutations.setPosts(json)
             })
+    },
+    addCustomPost(obj) {
+        firebase.database().ref('customPosts').push(obj);
     }
 };

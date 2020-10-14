@@ -8,16 +8,16 @@
       <router-link to="/custom-posts">Custom Posts</router-link>
     </div>
     <router-view/>
-    <Modal v-if="isModalVisible"/>
+    <ModalMore v-if="activePost"/>
   </div>
 </template>
 <script>
-import Modal from '@/components/Modal';
+import ModalMore from '@/components/ModalMore';
 import {getters} from './store';
 
 export default {
   name: 'app',
-  components: {Modal},
+  components: {ModalMore},
   computed: {
     ...getters
   }

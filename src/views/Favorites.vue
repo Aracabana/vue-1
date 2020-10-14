@@ -4,8 +4,7 @@
       <BlogPost v-for="post in favorites"
                 v-bind:key="post.type + '_' + post.id"
                 v-bind:post="post"
-                v-bind:favoriteClass="'active'"
-                v-bind:array="post.arrayType"/>
+                v-bind:favoriteClass="'active'"/>
     </div>
   </div>
 </template>

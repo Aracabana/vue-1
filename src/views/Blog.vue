@@ -3,8 +3,7 @@
         <div class="posts-in">
             <BlogPost v-for="post in posts"
                       v-bind:key="post.id"
-                      v-bind:post="post"
-                      v-bind:array="'posts'"/>
+                      v-bind:post="post"/>
         </div>
     </div>
 </template>

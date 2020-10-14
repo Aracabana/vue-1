@@ -1,61 +1,35 @@
 <template>
     <div>
-        <button class="add-post" type="button">Add post</button>
-        <form @submit.prevent="onSubmit">
-            <div>
-                <label>Title</label>
-                <input type="text" v-model="title">
-            </div>
-            <div>
-                <label>Text</label>
-                <textarea v-model="body"></textarea>
-            </div>
-            <button :disabled="isDisabled" type="submit">Submit</button>
-        </form>
+        <button class="add-post" type="button" @click="isModalVisible = true">Add post</button>
         <div class="posts">
             <div class="posts-in">
                 <BlogPost v-for="post in customPosts"
                           v-bind:key="post.id"
-                          v-bind:post="post"
-                          v-bind:array="'customPosts'"/>
+                          v-bind:post="post"/>
             </div>
         </div>
+        <ModalAddPost v-if="isModalVisible" @closeModal="isModalVisible = false"/>
     </div>
 </template>
 <script>
     import BlogPost from '@/components/BlogPost';
+    import ModalAddPost from '../components/ModalAddPost';
     import {getters, actions, mutations} from '../store';
     
     export default {
         name: "CustomPosts",
         data() {
             return {
-                title: '',
-                body: '',
+                isModalVisible: false
             }
         },
-        components: {BlogPost},
+        components: {BlogPost, ModalAddPost},
         computed: {
-            ...getters,
-            isDisabled: function () {
-                return !this.title || !this.body
-            }
+            ...getters
         },
         methods: {
             ...actions,
-            ...mutations,
-            onSubmit() {
-                if (this.title.trim() && this.body.trim()) {
-                    const newPost = {
-                        id: this.customPostsLength,
-                        userId: 1,
-                        type: 'custom',
-                        title: this.title,
-                        body: this.body
-                    }
-                    this.addCustomPost(newPost);
-                }
-            }
+            ...mutations
         },
         //created() {
         //    if (!this.customPosts.length) {
@@ -80,28 +54,5 @@
         align-content: start;
         box-sizing: border-box;
         margin: 0 -16px;
-    }
-    form {
-        padding: 16px;
-    }
-    form button {
-        display: block;
-        width: 100px;
-    }
-    label {
-        display: block;
-        margin-bottom: 5px;
-        text-align: left;
-    }
-    input {
-        display: block;
-        margin-bottom: 20px;
-        width: 40%;
-    }
-    textarea {
-        display: block;
-        margin-bottom: 20px;
-        width: 40%;
-        height: 100px;
     }
 </style>
