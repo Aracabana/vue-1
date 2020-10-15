@@ -15,6 +15,7 @@
                             <textarea v-model="body"></textarea>
                         </div>
                         <button :disabled="isDisabled" type="submit">Submit</button>
+                        <Preloader v-if="loading"/>
                     </form>
                 </div>
             </div>
@@ -23,14 +24,18 @@
 </template>
 <script>
     import {getters, mutations, actions} from '../store';
+    import Preloader from './Preloader';
     export default {
         name: "ModalAddPost",
+        components: {Preloader},
         data() {
             return {
                 title: '',
                 body: '',
+                loading: false
             }
         },
+        comments: {Preloader},
         computed: {
             ...getters,
             isDisabled: function () {
@@ -41,20 +46,29 @@
             ...mutations,
             ...actions,
             onSubmit() {
-                if (this.title.trim() && this.body.trim()) {
-                    const newPost = {
-                        id: this.customPostsLength,
-                        userId: 1,
-                        type: 'customPosts',
-                        title: this.title,
-                        body: this.body
-                    };
-                    this.addCustomPost(newPost);
+                if (!this.title.trim() && !this.body.trim()) {
+                    return
+                }
+                const newPost = {
+                    id: this.customPostsLength,
+                    userId: 1,
+                    type: 'customPosts',
+                    title: this.title,
+                    body: this.body
+                };
+                this.loading = true;
+                this.addCustomPost(newPost).then((value) => {
+                    console.log(value);
+                }).catch((err) => {
+                    console.log(err);
+                }).finally(() => {
                     this.title = '';
                     this.body = '';
-                    //добавить спинер
-                    this.$emit('closeModal');
-                }
+                    this.loading = false;
+                    setTimeout(() => {
+                        this.$emit('closeModal');
+                    }, 500)
+                });
             }
         }
     }
@@ -101,7 +115,8 @@
         color: #2c3e50;
     }
     form {
-        padding: 16px;
+        position: relative;
+        box-sizing: border-box;
     }
     form button {
         display: block;
@@ -111,16 +126,19 @@
     }
     label {
         display: block;
+        box-sizing: border-box;
         margin-bottom: 5px;
         text-align: left;
     }
     input {
         display: block;
         margin-bottom: 20px;
+        box-sizing: border-box;
         width: 100%;
     }
     textarea {
         display: block;
+        box-sizing: border-box;
         margin-bottom: 20px;
         width: 100%;
         height: 100px;

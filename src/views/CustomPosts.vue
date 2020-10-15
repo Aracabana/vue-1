@@ -3,8 +3,8 @@
         <button class="add-post" type="button" @click="isModalVisible = true">Add post</button>
         <div class="posts">
             <div class="posts-in">
-                <BlogPost v-for="post in customPosts"
-                          v-bind:key="post.id"
+                <BlogPost v-for="(post, index) in customPosts"
+                          v-bind:key="index"
                           v-bind:post="post"/>
             </div>
         </div>
@@ -31,11 +31,15 @@
             ...actions,
             ...mutations
         },
-        //created() {
-        //    if (!this.customPosts.length) {
-        //        this.fetchPostsFromApi()
-        //    }
-        //},
+        created() {
+            //if (!this.customPosts.length) {
+            //}
+            //this.getCustomPosts().then((value) => {
+            //    console.log(value);
+            //}).catch((error) => {
+            //    console.log(error);
+            //});
+        },
         
     }
 </script>
@@ -51,7 +55,7 @@
         display: flex;
         justify-content: flex-start;
         flex-wrap: wrap;
-        align-content: start;
+        align-content: flex-start;
         box-sizing: border-box;
         margin: 0 -16px;
     }

@@ -31,7 +31,7 @@ export default {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-    align-content: start;
+    align-content: flex-start;
     box-sizing: border-box;
     margin: 0 -16px;
   }

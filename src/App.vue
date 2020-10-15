@@ -13,13 +13,20 @@
 </template>
 <script>
 import ModalMore from '@/components/ModalMore';
-import {getters} from './store';
+import {getters, actions} from './store';
 
 export default {
   name: 'app',
   components: {ModalMore},
   computed: {
     ...getters
+  },
+  methods: {
+    ...actions,
+  },
+  async mounted() {
+    await this.fetchPostsFromApi();
+    await this.getCustomPosts();
   }
 }
 </script>

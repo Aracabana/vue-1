@@ -4,26 +4,7 @@ import firebase from 'firebase/app';
 const state = Vue.observable({
     posts: [],
     favorites: [],
-    customPosts: [
-/*        {
-            body:"quia et suscipit suscipit recusandae consequuntur expedita et cum" +
-                " reprehenderit molestiae ut ut quas totam nostrum rerum est autem sunt rem" +
-                " eveniet architecto",
-            id: 101,
-            title: "Custom 1",
-            userId: 1,
-    
-        },
-        {
-            body:"quia et suscipit suscipit recusandae consequuntur expedita et cum" +
-                " reprehenderit molestiae ut ut quas totam nostrum rerum est autem sunt rem" +
-                " eveniet architecto",
-            id: 102,
-            title: "Custom 2",
-            userId: 1,
-        
-        }*/
-    ],
+    customPosts: [],
     activePost: null
 });
 export const getters = {
@@ -61,17 +42,49 @@ export const mutations = {
         state.favorites = state.favorites.filter(p => p.id !== post.id);
     },
     //addCustomPost: (obj) => state.customPosts.push(obj),
+    setCustomPosts: (posts) => state.customPosts = posts,
 };
 
 export const actions = {
-    fetchPostsFromApi() {
-        fetch('https://jsonplaceholder.typicode.com/posts')
-            .then(response => response.json())
-            .then((json) => {
-                mutations.setPosts(json)
-            })
+    async fetchPostsFromApi() {
+        //fetch('https://jsonplaceholder.typicode.com/posts')
+        //    .then(response => response.json())
+        //    .then((json) => {
+        //        mutations.setPosts(json)
+        //    });
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+        if (response.status === 200) {
+            const result = await response.json();
+            mutations.setPosts(result);
+        }
     },
-    addCustomPost(obj) {
-        firebase.database().ref('customPosts').push(obj);
+    addCustomPost(post) {
+        return new Promise((res, rej) => {
+            firebase.database().ref('customPosts').push(post, (err) => {
+                if (!err) {
+                    res('the post has been added');
+                }
+                rej(err);
+            });
+        });
+    },
+    async getCustomPosts() {
+        //const customPostsRef = firebase.database().ref('customPosts');
+        //customPostsRef.on('value', (snapshot) => {
+        //    mutations.setCustomPosts(snapshot.val());
+        //}, (error) => {
+        //    console.log(error);
+        //});
+        //fetch('https://training-53585.firebaseio.com/customPosts')
+        //    .then(response => response.json())
+        //    .then((json) => {
+        //        mutations.setPosts(json)
+        //    });
+        const response = await fetch('http://training-53585.firebaseio.com/customPosts.json');
+        if (response.status === 200) {
+            const result = await response.json();
+            mutations.setCustomPosts(result);
+            console.log(result);
+        }
     }
 };

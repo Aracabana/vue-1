@@ -20,11 +20,11 @@
         methods: {
             ...actions
         },
-        created() {
-            if (!this.posts.length) {
-                this.fetchPostsFromApi()
-            }
-        },
+        //created() {
+        //    if (!this.posts.length) {
+        //        this.fetchPostsFromApi()
+        //    }
+        //},
         
     }
 </script>
@@ -37,7 +37,7 @@
         display: flex;
         justify-content: flex-start;
         flex-wrap: wrap;
-        align-content: start;
+        align-content: flex-start;
         box-sizing: border-box;
         margin: 0 -16px;
     }
