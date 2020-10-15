@@ -47,11 +47,6 @@ export const mutations = {
 
 export const actions = {
     async fetchPostsFromApi() {
-        //fetch('https://jsonplaceholder.typicode.com/posts')
-        //    .then(response => response.json())
-        //    .then((json) => {
-        //        mutations.setPosts(json)
-        //    });
         const response = await fetch('https://jsonplaceholder.typicode.com/posts');
         if (response.status === 200) {
             const result = await response.json();
@@ -69,17 +64,6 @@ export const actions = {
         });
     },
     async getCustomPosts() {
-        //const customPostsRef = firebase.database().ref('customPosts');
-        //customPostsRef.on('value', (snapshot) => {
-        //    mutations.setCustomPosts(snapshot.val());
-        //}, (error) => {
-        //    console.log(error);
-        //});
-        //fetch('https://training-53585.firebaseio.com/customPosts')
-        //    .then(response => response.json())
-        //    .then((json) => {
-        //        mutations.setPosts(json)
-        //    });
         const response = await fetch('http://training-53585.firebaseio.com/customPosts.json');
         if (response.status === 200) {
             const result = await response.json();

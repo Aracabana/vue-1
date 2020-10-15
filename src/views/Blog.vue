@@ -20,12 +20,6 @@
         methods: {
             ...actions
         },
-        //created() {
-        //    if (!this.posts.length) {
-        //        this.fetchPostsFromApi()
-        //    }
-        //},
-        
     }
 </script>
 <style scoped>
