@@ -1,8 +1,8 @@
 <template>
     <div class="posts">
         <div class="posts-in">
-            <BlogPost v-for="post in posts"
-                      v-bind:key="post.id"
+            <BlogPost v-for="(post, index) in posts"
+                      v-bind:key="index"
                       v-bind:post="post"/>
         </div>
     </div>

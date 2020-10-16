@@ -31,16 +31,6 @@
             ...actions,
             ...mutations
         },
-        created() {
-            //if (!this.customPosts.length) {
-            //}
-            //this.getCustomPosts().then((value) => {
-            //    console.log(value);
-            //}).catch((error) => {
-            //    console.log(error);
-            //});
-        },
-        
     }
 </script>
 <style scoped>

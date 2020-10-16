@@ -8,16 +8,18 @@
       <router-link to="/custom-posts">Custom Posts</router-link>
     </div>
     <router-view/>
+    <Notification v-if="showNotification"/>
     <ModalMore v-if="activePost"/>
   </div>
 </template>
 <script>
 import ModalMore from '@/components/ModalMore';
+import Notification from './components/Notification';
 import {getters, actions} from './store';
 
 export default {
   name: 'app',
-  components: {ModalMore},
+  components: {ModalMore, Notification},
   computed: {
     ...getters
   },

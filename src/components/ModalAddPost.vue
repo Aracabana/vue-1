@@ -49,25 +49,31 @@
                 if (!this.title.trim() && !this.body.trim()) {
                     return
                 }
-                const newPost = {
-                    id: this.customPostsLength,
+                let newPost = {
+                    id: this.allPostsLength,
                     userId: 1,
                     type: 'customPosts',
                     title: this.title,
-                    body: this.body
+                    body: this.body,
+                    isFavorite: false
                 };
                 this.loading = true;
                 this.addCustomPost(newPost).then((value) => {
-                    console.log(value);
-                }).catch((err) => {
-                    console.log(err);
+                    this.setNotificationClass('success');
+                    this.setNotificationText(value);
+                }).catch(() => {
+                    this.setNotificationClass('error');
+                    this.setNotificationText('Error');
                 }).finally(() => {
                     this.title = '';
                     this.body = '';
                     this.loading = false;
                     setTimeout(() => {
                         this.$emit('closeModal');
-                    }, 500)
+                    }, 500);
+                    setTimeout(() => {
+                        this.toggleNotification();
+                    }, 800);
                 });
             }
         }

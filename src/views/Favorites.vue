@@ -1,8 +1,8 @@
 <template>
   <div class="posts">
     <div class="posts-in">
-      <BlogPost v-for="post in favorites"
-                v-bind:key="post.type + '_' + post.id"
+      <BlogPost v-for="(post, index) in favorites"
+                v-bind:key="post.type + '_' + index"
                 v-bind:post="post"
                 v-bind:favoriteClass="'active'"/>
     </div>

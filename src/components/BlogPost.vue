@@ -5,7 +5,7 @@
             <button @click.stop="toggleFavorite(post)" type="button" class="favorite" :class="favoriteClass">
                 &#9734;
             </button>
-            <p>id: {{ post.id }}</p>
+            <!--<p>id: {{ post.id }}</p>-->
             <h3>{{ post.title }}</h3>
             <p>{{ post.body }}</p>
         </div>
