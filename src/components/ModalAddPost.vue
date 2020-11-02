@@ -73,7 +73,7 @@
                     }, 500);
                     setTimeout(() => {
                         this.toggleNotification();
-                    }, 800);
+                    }, 900);
                 });
             }
         }
